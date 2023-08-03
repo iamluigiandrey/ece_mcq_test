@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+
+            margin-top: 20px;
+        }
+
+        h1 {
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .form-box {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            background-color: #fff;
+        }
+
+        .form-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        textarea.form-control {
+            height: 100px;
+            resize: none;
+        }
+
+        .choices-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+    </style>
+<body>
+    <div class="container">
+        <h1>Subject: {{ subject.name }}</h1>
+        <hr>
+        <div class="form-box">
+            <form method="POST" action="/add-question/{{ subject.id }}">
+                <div class="mb-3">
+                    <label for="question_text" class="form-label">Question:</label>
+                    <textarea class="form-control" id="question_text" name="question_text" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Choices:</label> <span><small><em>(tick the radio button to indicate correct answer)</em></small></span>
+                    <div class="choices-container">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><input class="form-check-input" type="radio" name="is_correct" value="0" required></span>
+                            <input type="text" name="choice_text" class="form-control" placeholder="A">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><input class="form-check-input" type="radio" name="is_correct" value="1" required></span>
+                            <input type="text" name="choice_text" class="form-control" placeholder="B">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><input class="form-check-input" type="radio" name="is_correct" value="2" required></span>
+                            <input type="text" name="choice_text" class="form-control" placeholder="C">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><input class="form-check-input" type="radio" name="is_correct" value="3" required></span>
+                            <input type="text" name="choice_text" class="form-control" placeholder="D">
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                <button type="submit" class="btn btn-success">Add Question</button>
+                </div>
+            </form>
+        </div>
+        <hr>
+        <h3>Questions ( {{ subject.questions|length }} )</h3>
+        {% for question in subject.questions %}
+            <div class="card my-3">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            {{ loop.index }}.&nbsp;{{ question.question_text }}&nbsp;&nbsp;<a href="/delete-question/{{ question.id }}"><i class="fas fa-trash"></i></a>
+                        </button>
+                    </h2>
+
+                    <div>
+                        {% for choice in question.choices %}
+                        <div>
+                            {{ loop.index|alphabetic }}.
+                        {% if choice.is_correct %}
+                            <strong>{{ choice.choice_text }}</strong> (Correct)<br>
+                        {% else %}
+                            {{ choice.choice_text }}<br>
+                        {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            
+            </div>
+        {% endfor %}
+    </div>
+
+{%endblock%}

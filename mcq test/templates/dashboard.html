@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 10px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.card .card-block {
+    padding: 10px;
+}
+
+</style>
+<div class="container">
+    <div class="row py-2 px-4">
+
+        <h4>Dashboard: Subjects</h4><hr>
+        {% for sub in sub %}
+        <div class="col-md-4 col-xl-3">
+            <div class="card border border-danger">
+                <div class="card-block">
+                    <h4 class="text-right"><i class="fa-solid fa-note-sticky"></i>&nbsp;{{ sub.name }}
+                      {% if current_user.full_name == "Admin" %}
+                      &nbsp;&nbsp;<a href="/delete-subject/{{ sub.id }}"><i class="fas fa-trash"></i></a>
+                      {% else %}
+                      {% endif %}
+                    </h4>
+                    <span><h6>Date Added: {{ sub.date_added.strftime("%m/%d/%Y") }}</h6></span>
+                    {% if current_user.full_name == "Admin" %}
+                    <a href="/student_scores/{{ sub.id }}"><button class="btn btn-danger mb-2">View student scores</button></a>
+                    <a style="text-decoration: none;color:black" href="/add-question/{{ sub.id }}"><button class="btn btn-warning w-100">Edit Test</button></a>
+                    {% else %}
+                    <a style="text-decoration: none;color:black" href="/take_test/{{ sub.id }}"><button class="btn btn-success w-100 mb-2">Take Test</button></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% if current_user.full_name == "Admin" %}
+        <div class="add">
+          <button class="btn" data-bs-toggle="modal" data-bs-target='#Add'><i class="fa-solid fa-circle-plus"></i></button>
+        </div>
+        {% else %}
+        {% endif %}
+      </div>
+    </div>
+
+
+
+  <div class="modal modal-fade p-4 py-md-5" tabindex="-1" role="dialog" id="Add">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+        <div class="modal-header border-bottom-0">
+          <h1 class="modal-title fs-5">Add new subject</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="POST" action="/add-sub">
+        <div class="modal-body py-0">
+          <p>Do you want to add another subject? Type it here</p>
+          <input type="text" class="form-control" name="name">
+        </div>
+        <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+          <button type="submit" class="btn btn-lg btn-warning">Submit</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

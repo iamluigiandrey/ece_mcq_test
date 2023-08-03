@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  <div class="col-12 container">
+    <div class="row align-items-center justify-content-center px-5 py-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+       <img src="../static/login.png" class="img-fluid hero1">
+      </div>
+      <div class="col-lg-6">
+        <h1 class="mb-3 login">USER LOGIN</h1>
+
+        <form method="POST">
+        <div class="mb-3">
+          <label class="form-label"  style="font-size: 20px;">Email Address:</label>
+          <div class="input-group input-group-lg">
+            <span class="input-group-text"><i class="fa-solid fa-users"></i></span>
+            <input type="text" name="evsu_mail" class="form-control inputs">
+          </div>
+          <div class="form-text">Note: Make sure you have entered a valid Evsu Mail account.</div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"  style="font-size: 20px;">Password:</label>
+          <div class="input-group input-group-lg">
+            <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+            <input type="password" name="password" class="form-control inputs">
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-6 text-left">
+            New? <a href="/signup">Signup now!</a>
+          </div>
+          <div class="col-md-6" style="text-align: right;">
+            <a href="">Forgot Password?</a>
+          </div>
+        </div>
+        <hr>
+    
+
+        <center><button class="btn btn-success">LOGIN</button></center>
+        </form>
+        
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+{% endblock %}

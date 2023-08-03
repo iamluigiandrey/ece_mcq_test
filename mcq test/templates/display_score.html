@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Score</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Test Score</h1>
+        <h3>Subject: {{ subject.name }}</h3>
+        <h4>Your Score: {{ score }} out of {{ subject.questions|length }}</h4>
+
+        <h2>Question-wise Comparison</h2>
+    
+        {{ choice}}
+
+        {% for question in randomized_questions %}
+            <h4>Question: {{ question.question_text }}</h4>
+            
+            {% for choice in question.randomized_choices %}
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="{{ choice.id }}" disabled>
+                    <label class="form-check-label">
+                        {% if choice.is_correct %}
+                            <strong>{{ choice.choice_text }}</strong> <span class="badge bg-success">Correct Answer</span><br>
+                            
+                        {% else %}
+                            {{ choice.choice_text }}<br>
+                            
+                            
+                        {% endif %}
+                    </label>
+                </div>
+            {% endfor %}
+            <hr>
+        {% endfor %}
+    </div>
+</body>
+</html>

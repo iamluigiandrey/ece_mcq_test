@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  <div class="main-content col-8 container-fluid">
+    <div class="row align-items-center justify-content-center py-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+       <img src="../static/ecelogo.png" class="img-fluid hero2 hero2m" alt="Bootstrap Themes">
+      </div>
+      <div class="col-lg-6">
+        <h1 class="mb-3 login">REGISTER NOW</h1>
+
+        <form method="POST">
+          <div class="form-floating mb-3">
+            <input type="text" name="full_name" class="form-control rounded-3" placeholder="name">
+            <label>Full Name:</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" name="age" class="form-control rounded-3" placeholder="age">
+            <label>Age:</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" name="student_id" class="form-control rounded-3" placeholder="student-id">
+            <label>Student ID:</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" name="year_section" class="form-control rounded-3" placeholder="year-and-section">
+            <label>Year and Section:</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="email" name="evsu_mail" class="form-control rounded-3" placeholder="name@example.com">
+            <label>Email address:</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" name="password" class="form-control rounded-3" placeholder="Password">
+            <label>Password:</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" name="confirm_password" class="form-control rounded-3" placeholder="ConfirmPassword">
+            <label>Confirm Password:</label>
+          </div>
+
+          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign up</button>
+          <small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small>
+          <hr class="my-4">
+          
+        </form>
+        
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      ...
+    </div>
+  </div>
+
+
+{% endblock %}

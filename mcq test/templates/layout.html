@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MCQ</title>
+  <!-- bootstrap 5 css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FONTAWESOME ICONS CSS-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <!-- custom css -->
+  <link rel="stylesheet" href="../static/style.css" />
+</head>
+
+<body>
+  <!-- Side-Nav -->
+
+  <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark side-navbar active-nav"  id="sidebar" >
+    <a href="/" class="d-flex  text-center  mb-md-0 me-md-auto text-white text-decoration-none">
+      <span class="fs-5 "> ECE MCQ TEST</span>
+    </a>
+    <hr>
+
+    <ul class="nav nav-pills flex-column mb-auto">
+      {% if current_user.is_authenticated %}
+      <li class="nav-item">
+        <a href="/" class="nav-link text-white" aria-current="page">
+          <i class="fa-solid fa-house"></i>
+            <span class="slink">Home</span>
+        </a>
+      </li>
+      <li>
+        <a href="/dashboard" class="nav-link text-white">
+          <i class="fa-solid fa-gauge me-2"></i>
+            <span class="slink">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="/logout" class="nav-link text-white">
+          <i class="fa-solid fa-power-off me-2"></i>
+            <span class="slink">Logout</span>
+        </a>
+      </li>
+    
+      {% else %}
+      <li class="nav-item">
+        <a href="/" class="nav-link text-white" aria-current="page">
+          <i class="fa-solid fa-house"></i>
+            <span class="slink">Home</span>
+        </a>
+      </li>
+      <li>
+        <a href="/dashboard" class="nav-link text-white">
+          <i class="fa-solid fa-gauge me-2"></i>
+            <span class="slink">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="/login" class="nav-link text-white">
+          <i class="fa-solid fa-right-to-bracket me-2"></i>
+            <span class="slink">Sign-in</span>
+        </a>
+      </li>
+      <li>
+        <a href="/signup" class="nav-link text-white">
+          <i class="fa-solid fa-user-plus me-2"></i>
+            <span class="slink">Register</span>
+        </a>
+      </li>
+      {% endif %}
+      {% if current_user.full_name == "Admin" %}
+      <li>
+        <a href="/all-users" class="nav-link text-white">
+          <i class="fa-solid fa-table-list me-2"></i>
+            <span class="slink">All Users</span>
+        </a>
+      </li>
+      {% elif current_user.is_authenticated %}
+      <li>
+        <a href="/profile/{{ current_user.id }}" class="nav-link text-white">
+          <i class="fa-solid fa-user me-2"></i>
+            <span class="slink">Profile</span>
+        </a>
+      </li>
+      {% else %}
+      {% endif %}
+
+
+    </ul>
+    <hr>
+  </div>
+
+  <!-- Main Wrapper -->
+  <div class="my-container active-cont">
+    <!-- Top Nav -->
+    <nav class="navbar top-navbar navbar-light text-bg-dark px-3">
+      <a class="btn border-0 bg-success" id="menu-btn"><i class="fa-solid fa-bars"></i></a>
+        <div class="nav-login d-flex">
+            {% if current_user.is_authenticated %}
+            <h5 class="mt-2 me-4 username">Hi! @{{ current_user.full_name}}  </h5>
+            <a href="/logout" class="btn btn-danger"><i class="fa-solid fa-power-off"></i></a>
+            {% else %}
+            <h5 class="mt-2 me-4 username">You are only signed in as a guest. </h5>
+            {% endif %}
+        </div>
+    </nav>
+    {% include "alert.html" %}
+  {% block content %}
+  {% endblock %}
+  </div>
+
+  <!-- bootstrap js -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script>
+    var menu_btn = document.querySelector("#menu-btn");
+var sidebar = document.querySelector("#sidebar");
+var container = document.querySelector(".my-container");
+menu_btn.addEventListener("click", () => {
+  sidebar.classList.toggle("active-nav");
+  container.classList.toggle("active-cont");
+});
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+.card-title{
+    color:black;
+    font-weight: bold;
+}
+</style>
+    <div class="container col-8">
+        <h1>Take Test: {{ subject.name }}</h1>
+        <form method="POST">
+            {% for question in randomized_questions %}
+                <div class="card my-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ loop.index }}. {{ question.question_text }}</h5>
+                        <ul class="list-group list-group-flush">
+                            {% for choice in question.randomized_choices %}
+                                <li class="list-group-item">
+                                    <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="{{ choice.id }}" required>
+                                    {{ loop.index|alphabetic }}.  {{ choice.choice_text }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Submit Answers</button>
+        </form>
+    </div>
+{% endblock %}
